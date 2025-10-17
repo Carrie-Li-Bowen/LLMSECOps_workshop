@@ -46,6 +46,8 @@ jobs:
           format: table
           exit-code: 0 # fail if vulnerabilities are found
           severity: HIGH,CRITICAL
+          scan-type: image
+          timeout: 10m
 
   deploy-k8s:
     runs-on: ubuntu-latest
