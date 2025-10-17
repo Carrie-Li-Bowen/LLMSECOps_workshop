@@ -1,0 +1,40 @@
+ docker build -t fastapi-app .
+ docker run -p 8000:8000 fastapi-app
+
+#Docker image scan using trivity image
+docker run --rm -v //var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --severity HIGH,CRITICAL fastapi-app:latest
+
+#download k8s
+curl.exe -LO "https://dl.k8s.io/release/v1.34.0/bin/windows/amd64/kubectl.exe"
+kubectl version --client
+
+#Minikube
+download the .exe
+then
+setx /M PATH "%PATH%;C:\Program Files\Kubernetes\Minikube" in cmd
+
+minikube version
+
+#This will spin up a local Kubernetes cluster and configure kubectl to talk to it.
+minikube start
+
+#Check if kubectl is connected:
+kubectl cluster-info
+
+kubectl apply -f deployment.yml
+kubectl apply -f service.yaml
+
+#helm
+1. Download Helm for Windows
+- Download: helm-v3.19.0-windows-amd64.zip
+
+C:\Program Files\Helm\
+
+- Then add that folder to your system PATH:
+- Open Start → Environment Variables
+- Edit the Path variable under System variables
+- Add: C:\Program Files\Helm
+
+helm version
+
+
