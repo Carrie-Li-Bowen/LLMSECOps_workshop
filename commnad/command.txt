@@ -37,4 +37,6 @@ C:\Program Files\Helm\
 
 helm version
 
+docker tag fastapi-app:latest bowen1997/fastapi-app:latest
+docker push bowen1997/fastapi-app:latest
 
