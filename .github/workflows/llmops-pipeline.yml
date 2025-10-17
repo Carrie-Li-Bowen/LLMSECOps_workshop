@@ -12,6 +12,7 @@ jobs:
       DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
       DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
       IMAGE_NAME: fastapi-app
+      DOCKER_HUB_USER: bowen1997
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -28,11 +29,11 @@ jobs:
 
       - name: Tag Docker image
         run: |
-          docker tag $IMAGE_NAME:latest $DOCKER_HUB_USERNAME/$IMAGE_NAME:latest
+          docker tag $IMAGE_NAME:latest $DOCKER_HUB_USER/$IMAGE_NAME:latest
 
       - name: Push Docker image
         run: |
-          docker push $DOCKER_HUB_USERNAME/$IMAGE_NAME:latest
+          docker push $DOCKER_HUB_USER/$IMAGE_NAME:latest
 
   scan-image:
     runs-on: ubuntu-latest
