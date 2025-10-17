@@ -42,7 +42,7 @@ jobs:
       - name: Scan Docker image with Trivy
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ${{ secrets.DOCKER_HUB_USERNAME }}/fastapi-app:latest
+          image-ref: $$DOCKER_HUB_USER/fastapi-app:latest
           format: table
           exit-code: 0 # fail if vulnerabilities are found
           severity: HIGH,CRITICAL
