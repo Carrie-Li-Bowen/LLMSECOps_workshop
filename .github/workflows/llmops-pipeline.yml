@@ -49,24 +49,25 @@ jobs:
           scan-type: image
           timeout: 10m
 
-  deploy-k8s:
-    runs-on: ubuntu-latest
-    needs: scan-image
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+deploy-k8s:
+  runs-on: ubuntu-latest
+  needs: scan-image
+  steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
 
-      - name: Setup kubectl
-        uses: azure/setup-kubectl@v3
-        with:
-          version: 'latest'
+    - name: Create KinD cluster
+      uses: helm/kind-action@v1.8.0
 
-      - name: Configure kubeconfig
-        run: |
-          mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBECONFIG_CONTENT }}" > $HOME/.kube/config
+    - name: Set KUBECONFIG for KinD
+      run: echo "KUBECONFIG=$(kind get kubeconfig-path)" >> $GITHUB_ENV
 
-      - name: Deploy to Kubernetes
-        run: |
-          kubectl apply -f deployment.yml --validate=false
-          kubectl apply -f service.yml --validate=false
+    - name: Setup kubectl
+      uses: azure/setup-kubectl@v3
+      with:
+        version: 'latest'
+
+    - name: Deploy manifests to KinD
+      run: |
+        kubectl apply -f deployment.yml --validate=false
+        kubectl apply -f service.yml --validate=false
