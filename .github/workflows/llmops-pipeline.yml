@@ -74,8 +74,9 @@ jobs:
 
       - name: Install KubeScore
         run: |
-          curl -sSL https://github.com/zegl/kube-score/releases/latest/download/kube-score_ubuntu_amd64.tar.gz | tar -xz
+          curl -sSL https://github.com/zegl/kube-score/releases/download/v1.17.0/kube-score_ubuntu_amd64.tar.gz | tar -xz
           sudo mv kube-score /usr/local/bin/
+
 
       - name: Run KubeScore and save report
         run: |
