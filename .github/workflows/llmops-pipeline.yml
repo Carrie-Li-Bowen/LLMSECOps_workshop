@@ -71,3 +71,15 @@ jobs:
         run: |
           kubectl apply -f deployment.yml --validate=false
           kubectl apply -f service.yml --validate=false
+
+      - name: Install KubeScore
+        run: |
+          curl -sSL https://github.com/zegl/kube-score/releases/latest/download/kube-score_ubuntu_amd64.tar.gz | tar -xz
+          sudo mv kube-score /usr/local/bin/
+
+      - name: Run KubeScore and save report
+        run: |
+          kube-score score deployment.yml --output-format ci > kube-score-deployment.txt
+          kube-score score service.yml --output-format ci > kube-score-service.txt
+
+
