@@ -56,6 +56,7 @@ jobs:
 
       - name: Run kube-score on manifests
         run: |
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
           export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
           kube-score score deployment.yml --output-format ci > kube-score-deployment.txt
           kube-score score service.yml --output-format ci > kube-score-service.txt
